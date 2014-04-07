@@ -25,6 +25,9 @@ Make sure to cut your lines at 80 characters. Looks better, is easier to read,
 and people with smaller screensizes will thank you. But as always exceptions are
 ok.
 
+Use `git-flow` and make small commits. Make sure to add yourself to the author
+list in alphabetical order. And name them usefully, if you can, otherwise go nuts.
+
 ### File structure
 
 The style-file (`numerik1.sty`) can be found in the parent directory. 
