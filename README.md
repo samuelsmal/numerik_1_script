@@ -14,7 +14,7 @@ This will generate a pdf-file, while ommiting the dvi-file.
 If you use another editor make sure to compile the `numerik1.tex`-file. 
 Otherwise it will not work as desired.
 
-## Contributation
+## Contribution
 If you want to contribute: Please do!
 But look at a the already written parts, to get a feeling for the style, 
 used notation, etc.
