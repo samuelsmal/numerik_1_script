@@ -6,9 +6,9 @@ Example %% TODO: Make Example-Environment
 	\mathbf{A}x = \mathbf{b}
 	=
 	\begin{pmatrix}
-		-2x_1 - 3x_2 + 14x_3 =  4 \\
-		 2x_1 + 2x_2 -  3x_3 =  5 \\
-		 4x_1 + 2x_2 -  2x_3 = 10
+		-2x_1 & - 3x_2 & + 14x_3 & =  4 \\
+		 2x_1 & + 2x_2 & -  3x_3 & =  5 \\
+		 4x_1 & + 2x_2 & -  2x_3 & = 10
 	\end{pmatrix}
 \]
 
@@ -153,3 +153,70 @@ $\mathbf{LU}$ factorization.
 % END THEOREM
 
 With the above process (see example) all multipliers have absolute value $\leq 1$.
+
+\paragraph{Remark:} In many applications $d \gg 1$. Storage/memory can be an
+issue. In practice for a given general matrix it's not necessary to full
+$\mathbf{A}$, $\mathbf{L}$, $\mathbf{U}$. In practice $\mathbf{A}$ is overwritten
+by
+
+\[
+	\begin{pmatrix}
+		u_{1,1} & u_{1,2} & \cdots & u_{1,d} \\
+		l_{2,1} & u_{2,2} & \cdots & l_{2,d} \\
+		\vdots  & \vdots  & \ddots & \vdots  \\
+		l_{d,1} & l_{d,2} & \cdots & l_{d,d}
+	\end{pmatrix}
+\]
+
+For a permuation matrix we only need a vector of length $d$, say $\mathbf{p}$.
+For example $\mathbf{p} = \begin{bmatrix}3 \\ 1 \\ 2\end{bmatrix}$.
+
+In many applications the given matrix has some particular structure which can be
+exploited when solving $\mathbf{A}x = \mathbf{b}$ by Gaussian elimination.
+A common, but important case are \textit{band matrices}.
+
+This is $a_{ij} = 0$, if $| i - j | > k$, for some $k \leq 1$.
+
+\paragraph{Example} A tridiagonal matrix is a band matrix with $k = 1$
+
+\[
+	\mathbf{A} =
+	\begin{pmatrix}
+        -2 &      1 & \cdots & 0      \\
+         1 &     -2 & \ddots & \vdots \\
+         0 & \ddots & \ddots & 1      \\
+         0 & \cdots & 1      & -2
+	\end{pmatrix}
+\]
+
+\[
+	a_{ii} \neq 0, a_{ii} = -2
+\]
+
+\[
+	a_{i, i + 1} \neq 0, a_{i,i-1}  \neq 0
+\]
+
+\[
+	a_{i,j} = 0, | i - j | > 1
+\]
+
+
+The \textit{band width} is $1$.
+
+More generally:
+
+\[
+	\mathbf{A} =
+	\begin{pmatrix}
+        * &      * & \cdots & 0      \\
+        * &      * & \ddots & \vdots \\
+        0 & \ddots & \ddots & *      \\
+        0 & \cdots & *      & *
+	\end{pmatrix}
+\]
+
+\paragraph{Exercise} What is the complexity of LU-factorization for a band 
+matrix of band width $k$ (without pivoting).
+
+\paragraph{Recall} on the general case complexity \BigO{d^3}.
