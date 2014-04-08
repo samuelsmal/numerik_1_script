@@ -1,3 +1,20 @@
 \chapter{Numerical differentiation}
 
-    
+Given a differentiable function $f : [a, b] \rightarrow \mathbb{R}$ and a point
+$x_0 \in (a, b)$ we want to approximate $f'(x_0)$.
+  
+% insert diagram april8-...-1
+
+This gives $f'(x_0) \approx \frac{f(x_0 + h) - f(x_0 - h)}{2h}$ more generally
+$\frac{f(x_2) - f(x_1)}{x_2 - x_1}$ for $x_1 < x_0 < x_2$.
+The green line is the interpolation polynomial passing through 
+$(x_1, f(x_1))$, $(x_2, f(x_2))$.
+
+\[
+	P_1(x) = f[x_1] + f[x_1, x_2](x - x_1) \text{, with} f[x_1, x_2] 
+	\frac{f(x_2) - f(x_1)}{x_2 - x_1} \\
+	\frac{d}{dx} P_1(x) = f[x_1, x_2], \forall x \\
+	f'(x_0) \approx \frac{d}{dx} P_1(x)
+\]
+
+Now what is the optimal choice of points?
