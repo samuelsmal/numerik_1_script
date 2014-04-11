@@ -21,12 +21,73 @@ used notation, etc.
 
 I'll try to expand this file with notes.
 
-Make sure to cut your lines at 80 characters. Looks better, is easier to read, 
-and people with smaller screensizes will thank you. But as always exceptions are
-ok.
+Make sure to cut your lines at 80 characters, if it's a formula, algorithm, matlab code,.... Looks better, is easier to read, and people with smaller screensizes will thank you. But as always exceptions are ok. Normal text can easily be wrapped so just use your head.
 
 Use `git-flow` and make small commits. Make sure to add yourself to the author
 list in alphabetical order. And name them usefully, if you can, otherwise go nuts.
+
+### Algorithms
+
+Adjust the following snippet to your use:
+
+```
+\begin{algorithm}
+\caption{LU for band matrices}
+\label{alg:lu-band-matrix} 
+	\begin{algorithmic}
+	    \ENSURE $a_{ij} = 0$, for $|i-j| > k$
+	    \textbf{Input:} A (, k)
+	    \textbf{Output:} L, U
+	    \FOR{$m = 1 \dotsc d$} \STATE{
+	    	$l_{mm} = 1$ \\
+	    	$U_{mm} = a_{mm}$
+	    	\FOR{$i = m + 1 \dotsc min(m + k, d)$} \STATE{
+	    		$l_{im} = \frac{a_{im}}{U_{mm}}$ \\
+	    		$U_{mi} = a_{ami}$
+	    	}\ENDFOR
+	    	\FOR{$i, j = m + 1 \dotsc min(m + k, d)$} \STATE{
+	    		$a_{ij} = a_{ij} - l_{im}U_{mj}$
+	    	}\ENDFOR
+	    }\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+```
+
+### Matlab code
+
+Adjust the following snippet to your use:
+
+```
+\begin{Matlab}
+	[L, U, P] = lu(A)
+\end{Matlab}
+```
+
+### Examples
+
+For now please wrap each example in an the following way:
+
+```
+Example
+	<Your stuff>
+% END Example
+```
+
+I plan to create an environment - see Issue #3 - which would be basically the same as the one for the code:
+
+```
+\begin{Example}
+	Consider ...
+\end{Example}
+```
+
+### Special commands
+
+A list of commands that could be usefull:
+
+* \BigO{<...>} Prints a nice big-O-notation.
+
+Append your own to the end of the style-file (`numerik1.sty`).
 
 ### File structure
 
