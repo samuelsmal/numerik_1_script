@@ -53,6 +53,8 @@ Adjust the following snippet to your use:
 \end{algorithm}
 ```
 
+For more information see the [manual](http://developer.berlios.de/docman/?group_id=3442).
+
 ### Matlab code
 
 Adjust the following snippet to your use:
