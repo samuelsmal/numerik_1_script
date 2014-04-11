@@ -87,7 +87,7 @@ I plan to create an environment - see Issue #3 - which would be basically the sa
 
 A list of commands that could be usefull:
 
-* \BigO{<...>} Prints a nice big-O-notation.
+* `\BigO{<...>}` Prints a nice big-O-notation.
 
 Append your own to the end of the style-file (`numerik1.sty`).
 
