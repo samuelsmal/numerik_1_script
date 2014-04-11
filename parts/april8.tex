@@ -1,0 +1,222 @@
+\chapter{Gaussian elimination with partial pivoting}
+
+Example %% TODO: Make Example-Environment
+
+\[ 
+	\mathbf{A}x = \mathbf{b}
+	=
+	\begin{pmatrix}
+		-2x_1 & - 3x_2 & + 14x_3 & =  4 \\
+		 2x_1 & + 2x_2 & -  3x_3 & =  5 \\
+		 4x_1 & + 2x_2 & -  2x_3 & = 10
+	\end{pmatrix}
+\]
+
+\paragraph{Note:} 
+There exists a solution because the determinante is non-zero.
+
+\paragraph{Step 1:}
+Scan rows 1 - 3 looking for the equation with maximal coefficient in \(x_1\)
+(in absolute value). Put this equation in the first row (interchange first with 
+the selected one).
+
+\[
+	\mathbf{\tilde{A}^{(1)}} =
+	\begin{pmatrix}
+ 		4 2 -2 \\
+ 		2 2 -3 \\
+ 		-2 -3 14      
+	\end{pmatrix} \text{,}
+	\mathbf{\tilde{b}^{(1)}} =
+	\begin{pmatrix}
+		10 \\
+		 5 \\
+		 4
+	\end{pmatrix}
+\]
+
+Now we eliminate \(x_1\) from equations 2 \& 3.
+
+\[
+	l_{21} = \frac{2}{4} = 0.5; l_{31} = \frac{-2}{4} = -0.5
+\]
+
+(Notice how \(|l_{21}| \leq 1\) and \(|l_{31|} \leq 1\).)
+
+After elimminatio we obtain:
+
+\[
+	\mathbf{A^{(2)}} =
+	\begin{pmatrix}
+ 		4  2 -2 \\
+ 		0  1 -2 \\
+ 		0 -2 13      
+	\end{pmatrix} \text{, }
+	\mathbf{b}^{(1)} =
+	\begin{pmatrix}
+		10 \\
+		 0 \\
+		 9
+	\end{pmatrix}
+\]
+
+\paragraph{Step 2:}
+Look again for an equation with biggest coefficient in \(x_2\), among rows 2 -3 
+(we don't look anymore at row 1). Interchange rows 2 and 3.
+
+\[
+	\mathbf{\tilde{A}^{(2)}} =
+	\begin{pmatrix}
+ 		4  2 -2 \\
+ 		0 -2 13 \\
+ 		0  1 -2 		   
+	\end{pmatrix} \text{, }
+	\mathbf{\tilde{b}(2)} =
+	\begin{pmatrix}
+		10 \\
+		 4 \\
+		 5
+	\end{pmatrix}
+\]
+
+Eliminate \(x_2\) from equation 3: \(l_{32} = \frac{1}{-2} = -0.5\) (Again
+\(|l_{32}| \leq 1\)).
+
+\[
+	\mathbf{A^{(3)}} =
+	\begin{pmatrix}
+ 		4  2 -2 \\
+ 		0 -2 13 \\
+ 		0  0 4.5      
+	\end{pmatrix} \text{, }
+	\mathbf{b}^{(3)} =
+	\begin{pmatrix}
+		10 \\
+		 9 \\
+		 4.5
+	\end{pmatrix} = c \text{, }
+	\mathbf{L} = \begin{pmatrix}
+ 		1 0 0 \\
+ 		0.5 1 0 \\
+ 		-0.5 -0.5 1   
+	\end{pmatrix}
+\]
+
+Now \(\mathbf{A} \neq \mathbf{LU}\)!
+
+\[
+	\mathbf{LU} = 
+	\begin{pmatrix}
+ 		4  2 -2 \\
+ 		-2 -3 14 \\
+ 		2 2 -3  
+	\end{pmatrix} =
+	\mathbf{PA}
+\]
+
+\(\mathbf{LU}\) being the permuation of rows on \(\mathbf{A}\).
+
+\[
+	\mathbf{P} = \mathbf{P_2 P_1} =
+	\begin{pmatrix}
+ 		0 0 1 \\
+ 		1 0 0 \\
+ 		0 1 0
+	\end{pmatrix}
+\]
+
+Which leads to:
+
+\[
+	\mathbf{A} = \mathbf{P^{-1}LU}
+\]
+
+\begin{Matlab}
+	[L, U, P] = lu(A)
+\end{Matlab}
+% END Example
+
+\paragraph{Definition} A permuatation matrix is a matrix with the same rows as
+the identity matrix but in a differnet order. All elements are $0$ but $d$ (for
+a $d \times d$ matrix) which are $1$ and there are no $1$'s in the same row nor
+column.
+% END DEFINITION
+
+\paragraph{Theorem} For every non singular $d \times d$ matrix $\mathbf{A}$ there
+exists a permuation matrix $\mathbf{P}$ such that $\mathbf{PA}$ admits a 
+$\mathbf{LU}$ factorization.
+
+\[
+	\mathbf{LU} = \mathbf{LU} \text{(when solving a linear sytem} \text{)}
+	 	\mathbf{Pb} = \mathbf{Lc}
+\]
+% END THEOREM
+
+With the above process (see example) all multipliers have absolute value $\leq 1$.
+
+\paragraph{Remark:} In many applications $d \gg 1$. Storage/memory can be an
+issue. In practice for a given general matrix it's not necessary to full
+$\mathbf{A}$, $\mathbf{L}$, $\mathbf{U}$. In practice $\mathbf{A}$ is overwritten
+by
+
+\[
+	\begin{pmatrix}
+		u_{1,1} & u_{1,2} & \cdots & u_{1,d} \\
+		l_{2,1} & u_{2,2} & \cdots & l_{2,d} \\
+		\vdots  & \vdots  & \ddots & \vdots  \\
+		l_{d,1} & l_{d,2} & \cdots & l_{d,d}
+	\end{pmatrix}
+\]
+
+For a permuation matrix we only need a vector of length $d$, say $\mathbf{p}$.
+For example $\mathbf{p} = \begin{bmatrix}3 \\ 1 \\ 2\end{bmatrix}$.
+
+In many applications the given matrix has some particular structure which can be
+exploited when solving $\mathbf{A}x = \mathbf{b}$ by Gaussian elimination.
+A common, but important case are \textit{band matrices}.
+
+This is $a_{ij} = 0$, if $| i - j | > k$, for some $k \leq 1$.
+
+\paragraph{Example} A tridiagonal matrix is a band matrix with $k = 1$
+
+\[
+	\mathbf{A} =
+	\begin{pmatrix}
+        -2 &      1 & \cdots & 0      \\
+         1 &     -2 & \ddots & \vdots \\
+         0 & \ddots & \ddots & 1      \\
+         0 & \cdots & 1      & -2
+	\end{pmatrix}
+\]
+
+\[
+	a_{ii} \neq 0, a_{ii} = -2
+\]
+
+\[
+	a_{i, i + 1} \neq 0, a_{i,i-1}  \neq 0
+\]
+
+\[
+	a_{i,j} = 0, | i - j | > 1
+\]
+
+
+The \textit{band width} is $1$.
+
+More generally:
+
+\[
+	\mathbf{A} =
+	\begin{pmatrix}
+        * &      * & \cdots & 0      \\
+        * &      * & \ddots & \vdots \\
+        0 & \ddots & \ddots & *      \\
+        0 & \cdots & *      & *
+	\end{pmatrix}
+\]
+
+\paragraph{Exercise} What is the complexity of LU-factorization for a band 
+matrix of band width $k$ (without pivoting).
+
+\paragraph{Recall} on the general case complexity \BigO{d^3}.
