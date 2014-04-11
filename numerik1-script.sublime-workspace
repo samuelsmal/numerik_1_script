@@ -203,31 +203,23 @@
 			"file": "numerik1.tex",
 			"settings":
 			{
-				"buffer_size": 291,
+				"buffer_size": 377,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "numerik1.sty",
+			"file": "parts/april8-second-part.tex",
 			"settings":
 			{
-				"buffer_size": 4006,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/samuel/Documents/UZH/4. Semester FS14/Database Systems/Notes/synopsis.tex",
-			"settings":
-			{
-				"buffer_size": 6498,
+				"buffer_size": 678,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "latexmk hole project",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 383.0,
 		"selected_items":
 		[
 			[
@@ -280,7 +272,15 @@
 	},
 	"file_history":
 	[
+		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/Ownscript/numerik1-script.sublime-project",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/Ownscript/numerik1.sty",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/Ownscript/parts/solutions-of-linear-systems.tex",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/Ownscript/parts/april8.tex",
 		"/home/samuel/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Database Systems/Queries/ass06.sql",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/Ownscript/README.md",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Database Systems/Notes/synopsis.tex",
+		"/home/samuel/Documents/UZH/4. Semester FS14/Database Systems/Notes/database-systems-synopsis.sublime-project",
 		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/programms/f_2_interpol.m",
 		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/programms/f_2_eval_interpol_newton.m",
 		"/home/samuel/Documents/UZH/4. Semester FS14/Numerik 1/programms/f_3_plin_interpol.m",
@@ -375,6 +375,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"\\~",
 			"error_x",
 			"tmp",
 			"color",
@@ -391,9 +392,10 @@
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"\\tilde",
 			"error_x_range",
 			"current_x_0",
 			"colour",
@@ -420,15 +422,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 291,
+						"buffer_size": 377,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								24,
-								24
+								360,
+								360
 							]
 						],
 						"settings":
@@ -550,19 +552,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "numerik1.sty",
+					"file": "parts/april8-second-part.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4006,
+						"buffer_size": 678,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								632,
+								632
 							]
 						],
 						"settings":
@@ -671,45 +673,13 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/samuel/Documents/UZH/4. Semester FS14/Database Systems/Notes/synopsis.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6498,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6498,
-								6498
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeXSQ/support/LaTeXSQ.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 225.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -748,7 +718,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 114.0
+		"height": 298.0
 	},
 	"output.find_results":
 	{
@@ -757,7 +727,7 @@
 	"project": "numerik1-script.sublime-project",
 	"replace":
 	{
-		"height": 66.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

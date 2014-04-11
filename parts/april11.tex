@@ -1,0 +1,145 @@
+\chapter{LU factorization (LR Zerlegung)}
+
+For a band matrix $A$ of size $d \times d$ and band width $k$ the \textit{LU}
+factorizatin can be coded as follows:
+
+% \begin{algorithm}
+% \caption{LU for band matrices}
+% \label{alg:lu-band-matrix} 
+% 	\begin{algorithmic}
+% 	    \ENSURE $a_{ij} = 0$, for $|i-j| > k$
+% 	    \textbf{Input:} A (, k)
+% 	    \textbf{Output:} L, U
+% 	    \FOR{$m = 1...d$}
+% 	    	$l_{mm} = 1$
+% 	    	$U_{mm} = a_{mm}$
+% 	    	\FOR{$i = m + 1 \dotsb min(m + k, d)$}
+% 	    		$l_{im} = \frac{a_{im}{U_{mm}}}$
+% 	    		$U_{mi} = a_{ami}$
+% 	    	\ENDFOR
+% 	    	\FOR{$i, j = m + 1 \dotsb min(m + k, d)$}
+% 	    		$a_{ij} = a_{ij} - l_{im}U{mj}$
+% 	    \ENDFOR
+% 	\end{algorithmic}
+% \end{algorithm}
+
+Complexitiy? In applications typically $d >> k$.
+
+\chapter{Numerical differentiation, second part}
+
+\section{}
+Most common formulas to approximate $f^{(1)}(a)$ for a given $f$ and 
+$a$. For fixed $h > 0$
+
+\begin{description}
+	\item[Backward difference formula]
+		\[f^{(1)}(a) \approx \frac{f(a) - f(a-h)}{h}\]
+	\item[Forward difference formula]
+		\[f^{(1)}(a) \approx \frac{f(a + h) - f(a)}{h}\]
+	\item[Central difference formula]
+		\[f^{(1)}(a) \approx \frac{f(a + h) - f(a - h)}{2h}\]
+\end{description}
+
+\subsection{Error analysis}
+
+\paragraph{For BDF}
+Taylor expansion around a:
+
+\begin{align*}
+	f(a - h) 
+	  &= f(a) - h f^{(1)}(a) + \frac{h^2}{2} f^{(2)}(a) 
+	  - \frac{h^3}{6} f^{(3)}(a) + \frac{h^4}{4!}f^{(4)}(a) + \bigO{h^5} \\
+	\frac{f(a) - f(a - h)}{h} 
+	  &= \frac{
+	  	h f^{(1)}(a) - \frac{h^2}{2}f^{(2)} + \bigO{h^3}
+	  	}{h} \\
+	  &= f^{(1)}(a) - \frac{h}{2}f^{(2)}(a) + \bigO(h^2) \text{, as} h \rightarrow 0 \\
+	|f^{(1)}(a) - \frac{f(a) - f(a - h)}{h}| \\
+	  &\leq C h \text{, C depending on} f^{2}
+\end{align*}
+
+\paragraph{For CDF}
+\begin{align*}
+	\frac{f(a + h) - f(a - h)}{2h} 
+	  &= \frac{
+	  	2h f^{(1)}(a) + \frac{h^3}{3} f^{(3)}(a) + \bigO{h^5}{2h}
+	  	} \\
+	  &= f^{(1)}(a) + \frac{h^2}{6}f^{(3)}(a) + \bigO{h^4}
+\end{align*}
+
+\[
+|f^{(1)}(a) - \frac{f(a + h) - f(a - h)}{2h} \leq C \cdot h^2, C = C(f^{3})
+\]
+
+
+\section{Approximation of the second derivative}
+
+\begin{align*}
+	f^{(2)} 
+	  &\approx \frac{f'(a + h) - f'(a - h)}{2h} \\
+	  &\underset{CDF}{}{\approx} \frac{\frac{f(a + 2h) - f(a)}{2h} - 
+	    \frac{f(a) - f(a - 2h)}{2h}}{2h} \\
+	  &= \frac{f(a + 2h) - 2f(a) + f(a - 2h)}{(2h)^2} \\
+	  &\underset{\~{h} = 2h} \frac{a + \~{h} - 2f(a) + f(a - \~{h})}{(\~{h})^2}
+\end{align*}
+
+Central difference formula for the second dericative! Prove error is $\bigO{\~{h}^2}$.
+
+The formula involves 3 evaluations of $f$ at three different points:
+$x_1 = a + h$, $x_2 = a$, and $x_3 = a - h$ (droping the \~).
+
+The interpolation polynomial at these points is:
+
+\[
+	P_2(x) = f[x_1] + f[x_1, x_2](x - x_1) + f[x_1, x_2, x_3](x - x_1)(x - x_2)
+\] 
+
+We can approximate $f^{(2)}(a)$:
+
+\begin{align*}
+	f^{(2)}(a) 
+		&\approx P_2^{(2)}(a) \\
+		&= 2 f[x_1, x_2, x_3] \\
+		&= \frac{f(a + h) - 2f(a) + f(a - h)}{h^2}
+\end{align*}
+
+\section{}
+
+Assume we want to approximate $f''(a_1), f''(a_2), \dotsb , f''(a_N)$. Assume further $a_j - a_{j - 1} = h$, $j = 1 \dotsb N$. We can approximate for each $j$:
+
+\begin{align*}
+	f^{(2)}(a_j) 
+		&\approx \frac{f(a_j + h) - 2f(a_j) + f(a_j -h)}{h^2} \\
+		&= \frac{f(a_{j + 1}) - 2f(a_j) + f(a_{j - 1})}{h^2} \text{2 \leq \leq N - 1}
+\end{align*}
+
+Consider the vector
+
+\[
+	\begin{bmatrix}
+		f(a_1) \\
+		f(a_2) \\
+		\vdots \\
+		f(a_N)
+	\end{bmatrix}
+	= \overrightarrow{f};
+	\underset{\text{Target}}{
+		\begin{bmatrix}
+			f''(a_1) \\
+			f''(a_2) \\
+			\vdots \\
+			f''(a_N)
+		\end{bmatrix}
+	} \approx \frac{1}{h^2}
+	\begin{bmatrix}
+		-2      &  1      & 0      & \vdots & 0 \\
+		 1      & -2      & 1      & \ddots & 0 \\
+		 0      &  \ddots & \ddots & \ddots & \vdots \\
+		 \vdots &  \ddots & \ddots & \ddots & 1 \\
+		 0      &  \hdots & 0      & 1      & -2 
+	\end{bmatrix}
+\]
+
+\[
+	\overrightarrow{f^{(2)}} \approx A \overrightarrow{f}
+\]
