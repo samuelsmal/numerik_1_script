@@ -67,28 +67,32 @@ Adjust the following snippet to your use:
 
 ```
 \begin{algorithm}
-\caption{LU for band matrices}
-\label{alg:lu-band-matrix} 
-	\begin{algorithmic}
-	    \ENSURE $a_{ij} = 0$, for $|i-j| > k$
-	    \textbf{Input:} A (, k)
-	    \textbf{Output:} L, U
-	    \FOR{$m = 1 \dotsc d$} \STATE{
-	    	$l_{mm} = 1$ \\
-	    	$U_{mm} = a_{mm}$
-	    	\FOR{$i = m + 1 \dotsc min(m + k, d)$} \STATE{
-	    		$l_{im} = \frac{a_{im}}{U_{mm}}$ \\
-	    		$U_{mi} = a_{ami}$
-	    	}\ENDFOR
-	    	\FOR{$i, j = m + 1 \dotsc min(m + k, d)$} \STATE{
-	    		$a_{ij} = a_{ij} - l_{im}U_{mj}$
-	    	}\ENDFOR
-	    }\ENDFOR
-	\end{algorithmic}
+\caption{LU decomposition}
+\label{alg:lu-decomposition} 
+\begin{algorithmic}
+	\For{$k = 1 \dotsc d - 1$} 
+		\For{$i = 1 \dotsc k$} 
+			\For{$j = 1 \dotsc d $}
+    			\LState $a_{ij}^{(k+1)} \gets a_{ij}^{(k)}$
+    		\EndFor
+    	\EndFor
+	    \For{$i = k + 1 \dotsc d$}
+	    	\LState $l_{ik} \gets \frac{a_{ik}^{(k)}}{a_{kk}^{(k)}}$
+	    	\For{$j = 1 \dotsc k$}
+	    		\LState $a_{ij}^{(k + 1)} \gets 0$
+	    	\EndFor
+	    	\For{$j = k + 1 \dotsc d$}
+	    		\LState $a_{ij}^{(k+1)} \gets a_{ij}^{(k)} - l_{ik}a_{kj}^{(k)}$
+	    	\EndFor
+	    	\LState $b_i^{(k + 1)} \gets b_i^{(k)} - l_{ik}b_{k}^{(k)}$
+	    \EndFor
+    \EndFor
+\end{algorithmic}
 \end{algorithm}
 ```
 
-For more information see the [manual](http://developer.berlios.de/docman/?group_id=3442).
+For more information see the [manual](http://ctan.mackichan.com/macros/latex/contrib/algorithmicx/algorithmicx.pdf) of the `algorithmicx` package.
+Or the [WikiBooks entry](http://en.wikibooks.org/wiki/LaTeX/Algorithms#Typesetting_using_the_algorithmicx_package)
 
 ### Matlab code
 
