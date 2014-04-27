@@ -1,4 +1,4 @@
-\chapter{Solutions of linear Systems, LU decomposition, Factorisation} % (fold)
+\chapter{Solutions of linear Systems, LU decomposition, Factorization} % (fold)
 \label{cha:solutions_of_linear_systems_lu_decomposition_factorisation}
 
 Given a square matrix $\mathbf{A}$ of dimension $N \times N$ and a column vector 
@@ -24,6 +24,75 @@ $\mathbf{b} \in \mathbb{R}^N$, we want to solve $\mathbf{A}x = \mathbf{b}$.
 	\end{pmatrix}
  \]
 
+Example
+\[\begin{matrix*}[r]
+		I   &  2x_1 & + &   3x_2 & + &   4x_3 & + &  5x_4 & = &   5 \\
+		II  &  6x_1 & + &  15x_2 & + &  19x_3 & + & 23x_4 & = &  30 \\
+		III &  8x_1 & + &  42x_2 & + &  60x_3 & + & 70x_4 & = &  98 \\
+		IV  & 12x_1 & + &  60x_2 & + &   1x_3 & + & 17x_4 & = & 144 \\
+\end{matrix*}\]
 
+
+\paragraph{Step 1}
+
+Eliminate $x_1$ from $II$, $III$, $IV$, while using only the first row:
+\[\begin{matrix*}[r]
+	\tilde{II}  & = & II  & - & \frac{a_{21}^{(1)}}{a_{11}^{(0)}} & = & II  & - & 3I \\
+	\tilde{III} & = & III & - & \frac{a_{31}^{(0)}}{a_{11}^{(0)}} & = & III & - & 4I \\
+	\tilde{IV}  & = & IV  & - & \frac{a_{41}^{(0)}}{a_{11}^{(0)}} & = & IV  & - & 6I \\
+\end{matrix*}\]
+
+The $n$ in $a_{*}^{(n)}$ indicates the used matrix, beginning with $0$ for the 
+first matrix and increasing by one for each elimination step.
+
+\[
+	\Rightarrow
+	A^{(1)}|b^{(1)} = 
+	\left(\begin{array}{r r r r | r}
+			2 &  3 &   4 &   5 &   5 \\
+			0 &  6 &   7 &   8 &  15 \\
+			0 & 30 &  44 &  50 &  78 \\
+			0 & 42 & -23 & -13 & 114
+	\end{array}\right)
+\]
+
+\paragraph{Step 2}
+
+Eliminate $x_2$ from $III$, $IV$, while using only the second row of $A^{(1)}$:
+\[
+\begin{matrix*}[r]
+	\tilde{III} & = & III & - & \frac{a_{32}^{(1)}}{a_{22}^{(1)}} & = & III & - & 5I \\
+	\tilde{IV}  & = & IV  & - & \frac{a_{42}^{(1)}}{a_{22}^{(1)}} & = & IV  & - & 7I \\
+\end{matrix*}
+\]
+
+\[
+	\Rightarrow
+	A^{(2)}|b^{(2)} = 
+	\left(\begin{array}{r r r r | r}
+			0 & 3 &   4 &   5 &  5 \\
+			0 & 6 &   7 &   8 & 15 \\
+			0 & 0 &   9 &  10 &  3 \\
+			0 & 0 & -72 & -65 &  8
+	\end{array}\right)
+\]
+
+\paragraph{Step 3}
+Repeating the step for the last row:
+
+\[
+	\Rightarrow
+	A^{(3)}|b^{(3)} = 
+	\left(\begin{array}{r r r r | r}
+			0 & 3 &  4 &  5 &  5 \\
+			0 & 6 &  7 &  8 & 15 \\
+			0 & 0 &  9 & 10 &  3 \\
+			0 & 0 &  0 & 11 & 33
+	\end{array}\right)
+\]
+
+
+
+% END Example
 
 % chapter solutions_of_linear_systems_lu_decomposition_factorisation (end)
