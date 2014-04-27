@@ -36,14 +36,23 @@ Example
 \paragraph{Step 1}
 
 Eliminate $x_1$ from $II$, $III$, $IV$, while using only the first row:
-\[\begin{matrix*}[r]
-	\tilde{II}  & = & II  & - & \frac{a_{21}^{(1)}}{a_{11}^{(0)}} & = & II  & - & 3I \\
-	\tilde{III} & = & III & - & \frac{a_{31}^{(0)}}{a_{11}^{(0)}} & = & III & - & 4I \\
-	\tilde{IV}  & = & IV  & - & \frac{a_{41}^{(0)}}{a_{11}^{(0)}} & = & IV  & - & 6I \\
-\end{matrix*}\]
-
 The $n$ in $a_{*}^{(n)}$ indicates the used matrix, beginning with $0$ for the 
 first matrix and increasing by one for each elimination step.
+
+\[\begin{matrix*}[r]
+	\tilde{II}  & = & II  & - & \frac{a_{21}^{(1)}}{a_{11}^{(0)}} I & = & II  & - & 3I \\
+	\tilde{III} & = & III & - & \frac{a_{31}^{(0)}}{a_{11}^{(0)}} I & = & III & - & 4I \\
+	\tilde{IV}  & = & IV  & - & \frac{a_{41}^{(0)}}{a_{11}^{(0)}} I & = & IV  & - & 6I \\
+\end{matrix*}\]
+
+Saving the step:
+
+\[
+	l_{21} = \frac{a_{21}^{(1)}}{a_{11}^{(0)}},
+	l_{31} = \frac{a_{31}^{(0)}}{a_{11}^{(0)}},
+	l_{41} = \frac{a_{41}^{(0)}}{a_{11}^{(0)}}
+\]
+
 
 \[
 	\Rightarrow
@@ -56,21 +65,28 @@ first matrix and increasing by one for each elimination step.
 	\end{array}\right)
 \]
 
+
 \paragraph{Step 2}
 
 Eliminate $x_2$ from $III$, $IV$, while using only the second row of $A^{(1)}$:
+
+\[\begin{matrix*}[r]
+		\tilde{III} & = & III & - & \frac{a_{32}^{(1)}}{a_{22}^{(1)}} II & = & III & - & 5II \\
+		\tilde{IV}  & = & IV  & - & \frac{a_{42}^{(1)}}{a_{22}^{(1)}} II & = & IV  & - & 7II \\
+\end{matrix*} \]
+
+Saving the step:
+
 \[
-\begin{matrix*}[r]
-	\tilde{III} & = & III & - & \frac{a_{32}^{(1)}}{a_{22}^{(1)}} & = & III & - & 5I \\
-	\tilde{IV}  & = & IV  & - & \frac{a_{42}^{(1)}}{a_{22}^{(1)}} & = & IV  & - & 7I \\
-\end{matrix*}
+	l_{32} = \frac{a_{32}^{(1)}}{a_{22}^{(1)}},
+	l_{42} = \frac{a_{42}^{(1)}}{a_{22}^{(1)}}
 \]
 
 \[
 	\Rightarrow
 	A^{(2)}|b^{(2)} = 
 	\left(\begin{array}{r r r r | r}
-			0 & 3 &   4 &   5 &  5 \\
+			2 & 3 &   4 &   5 &  5 \\
 			0 & 6 &   7 &   8 & 15 \\
 			0 & 0 &   9 &  10 &  3 \\
 			0 & 0 & -72 & -65 &  8
@@ -80,19 +96,87 @@ Eliminate $x_2$ from $III$, $IV$, while using only the second row of $A^{(1)}$:
 \paragraph{Step 3}
 Repeating the step for the last row:
 
+\[\begin{matrix*}[r]
+	\tilde{IV}  & = & IV  & - & \frac{a_{43}^{(2)}}{a_{33}^{(2)}} & = & IV  & + & 8I \\
+\end{matrix*} \]
+
 \[
 	\Rightarrow
 	A^{(3)}|b^{(3)} = 
 	\left(\begin{array}{r r r r | r}
-			0 & 3 &  4 &  5 &  5 \\
+			2 & 3 &  4 &  5 &  5 \\
 			0 & 6 &  7 &  8 & 15 \\
 			0 & 0 &  9 & 10 &  3 \\
-			0 & 0 &  0 & 11 & 33
+			0 & 0 &  0 & 15 & 32
 	\end{array}\right)
 \]
 
+Saving the step:
 
+\[
+	l_{43} = \frac{a_{43}^{(2)}}{a_{33}^{(2)}}
+\]
+
+Note the form of $A^{(3)}$: It's in a \textit{upper triangle} from, and therefore
+denoted with an $U$. The corresponding matrix build with the saved steps $l_{nm}$ is in a
+\textit{lower triangle} and therefore denoted an $L$.
+
+\[L = \begin{pmatrix*}[r]
+	1      &      0 &      0 & 0 \\
+	l_{21} &      1 &      0 & 0 \\
+	l_{31} & l_{32} &      1 & 0 \\
+	l_{41} & l_{42} & l_{43} & 1
+\end{pmatrix*} =
+\begin{pmatrix*}[r]
+	1 & 0 & 0 & 0 \\
+	3 & 1 & 0 & 0 \\
+	4 & 5 & 1 & 0 \\
+	6 & 7 & -8 & 1	
+\end{pmatrix*}
+\]
+
+The diagonal is set to one to allow the following decomposition of $A$:
+
+\[
+	A = LU, b = L \cdot b^{(3)}
+\]
 
 % END Example
+
+\paragraph{In the general case:} Given $Ax = b$, $A$ being a nonsingular
+\footnote{A square matrix $A$ is called nonsingular, invertible, or 
+nondegenerate if there exists a matrix $B$ such that $AB$ = $BA$ = $\mathbf{1}$.
+A matrix is singular iff (if and only if) it's determinat is 0.} matrix.
+
+Any square matrix $A$ admits an $LUP$ factorization. If $A$ is invertible, 
+then it admits an $LU$ (or $LDU$) factorization if and only if all its leading 
+principal minors\footnote{In linear algebra, a minor of a matrix $A$ is the 
+determinant of some smaller square matrix, cut down from $A$ by removing one or 
+more of its rows or columns. Minors obtained by removing just one row and one 
+column from square matrices (first minors) are required for calculating matrix 
+cofactors, which in turn are useful for computing both the determinant and 
+inverse of square matrices.} are nonsingular. If A is a singular matrix of rank $k$ , 
+then it admits an $LU$ factorization if the first $k$ leading principal minors 
+are nonsingular, although the converse is not true.
+
+If a square, invertible matrix has an $LDU$ factorization, then it is unique. 
+In that case, the $LU$ factorization is also unique if we require that the 
+diagonal of $L$ (or $U$ ) consists of ones.
+
+The LU decomposition can be viewed as the matrix form of Gaussian elimination. 
+Computers usually solve square systems of linear equations using the LU 
+decomposition, and it is also a key step when inverting a matrix, or 
+computing the determinant of a matrix. The LU decomposition was introduced
+by mathematician Alan Turing.
+
+Without a proper ordering or permutations in the matrix, 
+the factorization may fail to materialize. For example, it is easy to verify 
+(by expanding the matrix multiplication) that $a_{11} = l_{11} u_{11}$. 
+If $a_{11} = 0$, then at least one of $l_{11}$ and $u_{11}$ has to be zero, 
+which implies either $L$ or $U$ is singular. This is impossible if $A$ is 
+nonsingular. This is a procedural problem. It can be removed by simply 
+reordering the rows of $A$ so that the first element of the permuted matrix is 
+nonzero. The same problem in subsequent factorization steps can be removed the 
+same way, see the basic procedure below.
 
 % chapter solutions_of_linear_systems_lu_decomposition_factorisation (end)
