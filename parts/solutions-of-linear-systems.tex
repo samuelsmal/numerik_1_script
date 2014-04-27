@@ -179,4 +179,48 @@ reordering the rows of $A$ so that the first element of the permuted matrix is
 nonzero. The same problem in subsequent factorization steps can be removed the 
 same way, see the basic procedure below.
 
+\begin{algorithm}
+\caption{LU decomposition}
+\label{alg:lu-decomposition} 
+\begin{algorithmic}
+	\For{$k = 1 \dotsc d - 1$} \Comment{for all $x_d$}
+		\For{$i = 1 \dotsc k$} \Comment{For ... ???}
+			\For{$j = 1 \dotsc d $} \Comment{For all columns}
+    			\LState $a_{ij}^{(k+1)} \gets a_{ij}^{(k)}$
+    		\EndFor
+    	\EndFor
+	    \For{$i = k + 1 \dotsc d$} \Comment{These equations change}
+	    	\LState $l_{ik} \gets \frac{a_{ik}^{(k)}}{a_{kk}^{(k)}}$
+	    	\For{$j = 1 \dotsc k$} \Comment{Elimination of $x_k$}
+	    		\LState $a_{ij}^{(k + 1)} \gets 0$
+	    	\EndFor
+	    	\For{$j = k + 1 \dotsc d$}
+	    		\LState $a_{ij}^{(k+1)} \gets a_{ij}^{(k)} - l_{ik}a_{kj}^{(k)}$
+	    	\EndFor
+	    	\LState $b_i^{(k + 1)} \gets b_i^{(k)} - l_{ik}b_{k}^{(k)}$
+	    \EndFor
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Backward substitution}
+\label{alg:backward-substitution} 
+\begin{algorithmic}
+	\State $x_d \gets \frac{c_d}{U_{dd}}$
+	\For{$i \gets d-1, d-2, \dotsc 1$}
+		\LState $\tilde{c_i} \gets c_i - \sum_{j = i + 1}^{d} U_{dj}x_j$
+		\LState $x_i \gets \frac{\tilde{c_i}}{U_{ii}}$
+    \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{Theorem}
+	$A = LU, b = Lc$ \\
+	The Gaussian Elimination process yields a factorization of $A$ in terms of a
+	lower and upper triangular matrix.
+\end{Theorem}
+
+% END OF PHOTO 4
+
 % chapter solutions_of_linear_systems_lu_decomposition_factorisation (end)

@@ -3,26 +3,26 @@
 For a band matrix $A$ of size $d \times d$ and band width $k$ the \textit{LU}
 factorizatin can be coded as follows:
 
-\begin{algorithm}
-\caption{LU for band matrices}
-\label{alg:lu-band-matrix} 
-	\begin{algorithmic}
-	    \ENSURE $a_{ij} = 0$, for $|i-j| > k$
-	    \textbf{Input:} A (, k)
-	    \textbf{Output:} L, U
-	    \FOR{$m = 1 \dotsc d$} \STATE{
-	    	$l_{mm} = 1$ \\
-	    	$U_{mm} = a_{mm}$
-	    	\FOR{$i = m + 1 \dotsc min(m + k, d)$} \STATE{
-	    		$l_{im} = \frac{a_{im}}{U_{mm}}$ \\
-	    		$U_{mi} = a_{ami}$
-	    	}\ENDFOR
-	    	\FOR{$i, j = m + 1 \dotsc min(m + k, d)$} \STATE{
-	    		$a_{ij} = a_{ij} - l_{im}U_{mj}$
-	    	}\ENDFOR
-	    }\ENDFOR
-	\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}
+% \caption{LU for band matrices}
+% \label{alg:lu-band-matrix} 
+% 	\begin{algorithmic}
+% 	    \ENSURE $a_{ij} = 0$, for $|i-j| > k$
+% 	    \textbf{Input:} A (, k)
+% 	    \textbf{Output:} L, U
+% 	    \FOR{$m = 1 \dotsc d$} \STATE{
+% 	    	$l_{mm} = 1$ \\
+% 	    	$U_{mm} = a_{mm}$
+% 	    	\FOR{$i = m + 1 \dotsc min(m + k, d)$} \STATE{
+% 	    		$l_{im} = \frac{a_{im}}{U_{mm}}$ \\
+% 	    		$U_{mi} = a_{ami}$
+% 	    	}\ENDFOR
+% 	    	\FOR{$i, j = m + 1 \dotsc min(m + k, d)$} \STATE{
+% 	    		$a_{ij} = a_{ij} - l_{im}U_{mj}$
+% 	    	}\ENDFOR
+% 	    }\ENDFOR
+% 	\end{algorithmic}
+% \end{algorithm}
 
 Complexitiy? In applications typically $d >> k$.
 
