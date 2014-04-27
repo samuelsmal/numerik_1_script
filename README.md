@@ -26,6 +26,41 @@ Make sure to cut your lines at 80 characters, if it's a formula, algorithm, matl
 Use `git-flow` and make small commits. Make sure to add yourself to the author
 list in alphabetical order. And name them usefully, if you can, otherwise go nuts.
 
+### Matrizes
+
+To pretty print them use:
+
+### A|b
+```
+\left(\begin{array}{r r | r}
+	a_{11} & a_{12} & b_{1} \\
+	a_{21} & a_{22} & b_{2}
+\end{array}\right)
+```
+
+Which will give you:
+
+```
+/                 \
+| a_11 a_12 | b_1 |
+| a_21 a_22 | b_2 |
+\                 /
+```
+
+### Normal matrices
+
+Use the asterix (*) to denote alignment, use the option `r` to denote right 
+alignemnt and wrap each number and operation:
+
+```
+\[\begin{matrix*}[r]
+		I   &  2x_1 & + &   3x_2 & + &   4x_3 & + &  5x_4 & = &   5 \\
+		II  &  6x_1 & + &  15x_2 & + &  19x_3 & + & 23x_4 & = &  30 \\
+		III &  8x_1 & + &  42x_2 & + &  60x_3 & + & 70x_4 & = &  98 \\
+		IV  & 12x_1 & + &  60x_2 & + &   1x_3 & + & 17x_4 & = & 144 \\
+\end{matrix*}\]
+```
+
 ### Algorithms
 
 Adjust the following snippet to your use:
